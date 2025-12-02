@@ -5,8 +5,7 @@ typedef struct Node{
     int val;
     struct Node *left;
     struct Node *right;
-    int height;
-    
+    int height;  
 } Node;
 
 
@@ -159,7 +158,23 @@ Node *findNode(Node *tree, Node *nodeToDelete){
 
 }
 
-int main(int argc, char *argv[]){
-
+Node *createNode(int val){
+    Node *node = (Node *)malloc(sizeof(Node));
+    node->val = val;
+    node->left = NULL;
+    node->right = NULL;
+    node->height = 1;
+    return node;
 }
+
+void freeTree(Node *tree){
+	if (tree == NULL) return;
+
+	freeTree(tree->left);
+	freeTree(tree->right);
+
+	free(tree);
+}
+
+
 
