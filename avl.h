@@ -39,11 +39,13 @@ Node *findMinNode(Node *tree){
 }
 
 //left left
-Node *rightRotate(Node *newLeft){
+Node *rightRotate(Node *newLeft, long *balanceOps){
 
     if (newLeft == NULL || newLeft->left == NULL){
         return newLeft;
     }
+    (*balanceOps)++;
+
     Node *newMiddle = newLeft->left;
     Node *newRightOfLeft = newMiddle->right;
     newMiddle->right = newLeft;
@@ -56,11 +58,13 @@ Node *rightRotate(Node *newLeft){
 }
 
 //right right
-Node *leftRotate(Node *newRight){
+Node *leftRotate(Node *newRight, long *balanceOps){
 
     if (newRight == NULL || newRight->right == NULL){
         return newRight;
     }
+    (*balanceOps)++;
+
     Node *newMiddle = newRight->right;
     Node *newLeftOfRight = newMiddle->left;
     newMiddle->left = newRight;
@@ -73,7 +77,7 @@ Node *leftRotate(Node *newRight){
 }
 
 
-Node *performTreeBalancing(Node *root){
+Node *performTreeBalancing(Node *root, long *balanceOps){
     if (root == NULL) return root;
 
     int balance = getBalance(root);
@@ -81,46 +85,48 @@ Node *performTreeBalancing(Node *root){
     int balanceOfRight = getBalance(root->right);
 
     if (balance > 1 && balanceOfLeft >= 0){
-        return rightRotate(root);
+        return rightRotate(root, balanceOps);
     }
     else if (balance < -1 && balanceOfRight <= 0){
-        return leftRotate(root);
+        return leftRotate(root, balanceOps);
     }
     else if (balance > 1 && balanceOfLeft <= 0){
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
+        root->left = leftRotate(root->left, balanceOps);
+        return rightRotate(root, balanceOps);
     }
     else if (balance < -1 && balanceOfRight >= 0){
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
+        root->right = rightRotate(root->right, balanceOps);
+        return leftRotate(root, balanceOps);
     }
     return root;
 }
 
-Node *insertToAVLTree(Node *tree, Node *nodeToInsert){
+Node *insertToAVLTree(Node *tree, Node *nodeToInsert, long *searchOps, long *balanceOps){
     if (tree == NULL || nodeToInsert == NULL) return nodeToInsert;
 
     if (nodeToInsert->val < tree->val){
-        tree->left = insertToAVLTree(tree->left, nodeToInsert);
+        (*searchOps)++;
+        tree->left = insertToAVLTree(tree->left, nodeToInsert, searchOps, balanceOps);
     } else if (nodeToInsert->val > tree->val){
-        tree->right = insertToAVLTree(tree->right, nodeToInsert);  
+        (*searchOps)++;
+        tree->right = insertToAVLTree(tree->right, nodeToInsert, searchOps, balanceOps);  
     } else {
         return tree;
     }
 
     tree->height = recalculateHeightOfTree(tree);
     
-    return performTreeBalancing(tree);
+    return performTreeBalancing(tree, balanceOps);
 
 }
 
-Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete){
+Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete, long *balanceOps){
     if (tree == NULL || nodeToDelete == NULL) return tree;
 
     if (tree->val > nodeToDelete->val){
-        tree->left = deleteFromAVLTree(tree->left, nodeToDelete);
+        tree->left = deleteFromAVLTree(tree->left, nodeToDelete, balanceOps);
     } else if (tree->val < nodeToDelete->val){
-        tree->right = deleteFromAVLTree(tree->right, nodeToDelete);
+        tree->right = deleteFromAVLTree(tree->right, nodeToDelete, balanceOps);
     } else {
         if (tree->left == NULL){
             Node *right = tree->right;
@@ -133,7 +139,7 @@ Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete){
         }else {
             Node *minInRight = findMinNode(tree->right);
             tree->val = minInRight->val;
-            tree->right = deleteFromAVLTree(tree->right, minInRight);
+            tree->right = deleteFromAVLTree(tree->right, minInRight, balanceOps);
         }
     }
 
@@ -141,7 +147,7 @@ Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete){
 
     tree->height = recalculateHeightOfTree(tree);
     
-    return performTreeBalancing(tree);
+    return performTreeBalancing(tree, balanceOps);
 
 }
 
