@@ -30,7 +30,14 @@ int getBalance(Node *root){
     return getHeight(root->left) - getHeight(root->right);
 }
 
-
+Node *findMinNode(Node *tree){
+    Node *curr = tree;
+    if (curr == NULL) return curr;
+    while (curr->left != NULL){
+        curr = curr->left;
+    }
+    return curr;
+}
 
 //left left
 Node *rightRotate(Node *newLeft){
@@ -106,6 +113,50 @@ Node *insertToAVLTree(Node *tree, Node *nodeToInsert){
     tree->height = recalculateHeightOfTree(tree);
     
     return performTreeBalancing(tree);
+
+}
+
+Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete){
+    if (tree == NULL || nodeToDelete == NULL) return tree;
+
+    if (tree->val > nodeToDelete->val){
+        tree->left = deleteFromAVLTree(tree->left, nodeToDelete);
+    } else if (tree->val < nodeToDelete->val){
+        tree->right = deleteFromAVLTree(tree->right, nodeToDelete);
+    } else {
+        if (tree->left == NULL){
+            Node *right = tree->right;
+            free(tree);
+            return right;
+        } else if (tree->right == NULL){
+            Node *left = tree->left;
+            free(tree);
+            return left;
+        }else {
+            Node *minInRight = findMinNode(tree->right);
+            tree->val = minInRight->val;
+            tree->right = deleteFromAVLTree(tree->right, minInRight);
+        }
+    }
+
+    if (tree == NULL) return NULL;
+
+    tree->height = recalculateHeightOfTree(tree);
+    
+    return performTreeBalancing(tree);
+
+}
+
+Node *findNode(Node *tree, Node *nodeToDelete){
+    if (tree == NULL || nodeToDelete == NULL) return NULL;
+
+    if (tree->val > nodeToDelete->val){
+        return findNode(tree->left, nodeToDelete);
+    } else if (tree->val < nodeToDelete->val){
+        return findNode(tree->right, nodeToDelete);
+    } 
+
+    return tree;
 
 }
 
