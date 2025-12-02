@@ -151,13 +151,13 @@ Node *deleteFromAVLTree(Node *tree, Node *nodeToDelete, long *balanceOps){
 
 }
 
-Node *findNode(Node *tree, Node *nodeToDelete){
-    if (tree == NULL || nodeToDelete == NULL) return NULL;
+Node *findNode(Node *tree, Node *nodeToFind){
+    if (tree == NULL || nodeToFind == NULL) return NULL;
 
-    if (tree->val > nodeToDelete->val){
-        return findNode(tree->left, nodeToDelete);
-    } else if (tree->val < nodeToDelete->val){
-        return findNode(tree->right, nodeToDelete);
+    if (tree->val > nodeToFind->val){
+        return findNode(tree->left, nodeToFind);
+    } else if (tree->val < nodeToFind->val){
+        return findNode(tree->right, nodeToFind);
     } 
 
     return tree;
