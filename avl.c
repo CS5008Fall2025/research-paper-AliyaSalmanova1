@@ -74,29 +74,28 @@ Node *leftRotate(Node *newRight){
 }
 
 
-
 Node *performTreeBalancing(Node *root){
+    if (root == NULL) return root;
 
     int balance = getBalance(root);
     int balanceOfLeft = getBalance(root->left);
     int balanceOfRight = getBalance(root->right);
 
-    if (balance > 1 && balanceOfRight >= 0){
+    if (balance > 1 && balanceOfLeft >= 0){
         return rightRotate(root);
     }
-    else if (balance < -1 && balanceOfLeft >= 0){
+    else if (balance < -1 && balanceOfRight <= 0){
         return leftRotate(root);
     }
-    else if (balance > 1 && balanceOfRight <= 0){
-        root->right = rightRotate(root->right);
-        return leftRotate(root->right);
-    }
-    else if (balance < -1 && balanceOfLeft <= 0){
+    else if (balance > 1 && balanceOfLeft <= 0){
         root->left = leftRotate(root->left);
         return rightRotate(root);
     }
+    else if (balance < -1 && balanceOfRight >= 0){
+        root->right = rightRotate(root->right);
+        return leftRotate(root);
+    }
     return root;
-    
 }
 
 Node *insertToAVLTree(Node *tree, Node *nodeToInsert){
