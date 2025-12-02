@@ -43,6 +43,22 @@ int smallTreeTestHelper(int nodeVal1, int nodeVal2, int nodeVal3){
     return result;   
 }
 
+int testRRbalancingOnSmallTree(){
+    return smallTreeTestHelper(1, 2, 3);
+}
+
+int testLLbalancingOnSmallTree(){
+    return smallTreeTestHelper(3, 2, 1);
+}
+
+int testRLbalancingOnSmallTree(){
+    return smallTreeTestHelper(1, 3, 2);
+}
+
+int testLRbalancingOnSmallTree(){
+    return smallTreeTestHelper(3, 1, 2);
+}
+
 int mediumTreeTestHelper(int *valArray, int arrayLength){
 
 	Node **nodeArray = (Node **)malloc(sizeof(Node *) * arrayLength);
@@ -67,23 +83,6 @@ int mediumTreeTestHelper(int *valArray, int arrayLength){
 }
 
 
-int testRRbalancingOnSmallTree(){
-    return smallTreeTestHelper(1, 2, 3);
-}
-
-int testLLbalancingOnSmallTree(){
-    return smallTreeTestHelper(3, 2, 1);
-}
-
-int testRLbalancingOnSmallTree(){
-    return smallTreeTestHelper(1, 3, 2);
-}
-
-int testLRbalancingOnSmallTree(){
-    return smallTreeTestHelper(3, 1, 2);
-}
-
-
 int testRRBalancingOnMediumTree(){
 
     return mediumTreeTestHelper((int []){1, 2, 3, 4, 5, 6, 7, 8, 9}, mediumArrayLength);
@@ -103,6 +102,40 @@ int testLRBalancingOnMediumTree(){
 
     return mediumTreeTestHelper((int []){9, 8, 6, 4, 2, 1, 3, 5, 7}, mediumArrayLength);
 }
+
+
+int deleteNodeInSmallTreeHelper(int nodeVal1, int nodeVal2, int nodeVal3, Node *nodeToDelete){
+    /*
+    Node *node1 = createNode(nodeVal1);
+    Node *node2 = createNode(nodeVal2);
+    Node *node3 = createNode(nodeVal3);
+
+
+    Node *avlTree = insertToAVLTree(NULL, node1);
+    avlTree = insertToAVLTree(avlTree, node2);
+    avlTree = insertToAVLTree(avlTree, node3);
+    */
+	int result = 0;
+    /*
+
+    if (avlTree->val != 2) result = -1;
+    if (avlTree->left == NULL) result = -1;
+    if (avlTree->left->val != 1) result = -1;
+    if (avlTree->right == NULL) result = -1;
+    if (avlTree->right->val != 3) result = -1;
+	if (avlTree->left->height != 1) result = -1;
+	if (avlTree->right->height != 1) result = -1;
+	if (avlTree->height != 2) result = -1;
+
+	
+	
+	freeTree(avlTree);
+    */
+
+    return result;   
+
+}
+
 
 
 int main(){

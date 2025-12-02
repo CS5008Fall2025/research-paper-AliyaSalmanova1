@@ -4,8 +4,9 @@
 
 char *dataCsv = "data.csv";
 
-void logToCSV(){
-    FILE *data = fopen(dataCsv, "w");
+void logToCSV(const char* fileName, int(*getVal)(int)){
+
+    FILE *data = fopen(fileName, "w");
     if (data == NULL) {
         printf("Error opening file with w!\n");
         return; 
@@ -15,8 +16,7 @@ void logToCSV(){
 
     fclose(data);
 
-
-    data = fopen(dataCsv, "a");
+    data = fopen(fileName, "a");
     if (data == NULL) {
         printf("Error opening file with a!\n");
         return; 
@@ -31,10 +31,13 @@ void logToCSV(){
     fprintf(data, "N, Search Ops, Balance Ops\n");
 
     for (int i = 1; i <= 1000; i++){
+
+        int currVal = getVal(i);
+
         long searchOps = 0;
         long balanceOps = 0;
         
-        avlTree = insertToAVLTree(avlTree, createNode(i), &searchOps, &balanceOps);
+        avlTree = insertToAVLTree(avlTree, createNode(currVal), &searchOps, &balanceOps);
 
         totalSearchOps += searchOps;
         totalBalanceOps += balanceOps;
@@ -53,9 +56,23 @@ void logToCSV(){
     fclose(data);
 }
 
+int getSameNum(int i){
+    return i;
+}
+
+int getDifference(int i){
+    return 1000 - i;
+}
+
+int getRandomNum(int i){
+    return (rand() % 1000) + 1;
+}
+
+
 int main(int argc, char *argv[]){
-    logToCSV();
-    //logToCSV("ascendingNodeValues.csv");
-    //logToCSV("descendingNodeValues.csv");
-    //logToCSV("randomNodeValues.csv");
+
+    logToCSV("ascendingNodeValues.csv", getSameNum);
+    logToCSV("descendingNodeValues.csv", getDifference);
+    logToCSV("randomNodeValues.csv", getRandomNum);
+
 }
