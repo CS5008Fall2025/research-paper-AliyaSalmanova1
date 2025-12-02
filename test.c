@@ -23,9 +23,9 @@ int smallTreeTestHelper(int nodeVal1, int nodeVal2, int nodeVal3){
     Node *node3 = createNode(nodeVal3);
 
 
-    Node *avlTree = insertToAVLTree(NULL, node1);
-    avlTree = insertToAVLTree(avlTree, node2);
-    avlTree = insertToAVLTree(avlTree, node3);
+    Node *avlTree = insertToAVLTree(NULL, node1, 0, 0);
+    avlTree = insertToAVLTree(avlTree, node2, 0, 0);
+    avlTree = insertToAVLTree(avlTree, node3, 0, 0);
 
 	int result = 0;
 
@@ -70,7 +70,7 @@ int mediumTreeTestHelper(int *valArray, int arrayLength){
     Node *avlTree = NULL;
 
 	for (int i = 0; i < arrayLength; i++){
-		avlTree = insertToAVLTree(avlTree, nodeArray[i]);
+		avlTree = insertToAVLTree(avlTree, nodeArray[i], 0, 0);
 	}
 	
 	int result = 0;
@@ -136,18 +136,36 @@ int deleteNodeInSmallTreeHelper(int nodeVal1, int nodeVal2, int nodeVal3, Node *
 
 }
 
+int(*testFunctions[])() = {
+    testLLbalancingOnSmallTree,
+    testRRbalancingOnSmallTree,
+    testLRbalancingOnSmallTree,
+    testRLbalancingOnSmallTree,
+	testRRBalancingOnMediumTree,
+    testLLBalancingOnMediumTree,
+    testRLBalancingOnMediumTree,
+    testLRBalancingOnMediumTree
+};
 
+char *testFunctionName[] = {
+    "testLLbalancingOnSmallTree",
+    "testRRbalancingOnSmallTree",
+    "testLRbalancingOnSmallTree",
+    "testRLbalancingOnSmallTree",
+	"testRRBalancingOnMediumTree",
+    "testLLBalancingOnMediumTree",
+    "testRLBalancingOnMediumTree",
+    "testLRBalancingOnMediumTree"
+};
 
 int main(){
-    printf("%d\n", testLLbalancingOnSmallTree());
-    printf("%d\n", testRRbalancingOnSmallTree());
-    printf("%d\n", testLRbalancingOnSmallTree());
-    printf("%d\n", testRLbalancingOnSmallTree());
+    int numOfTests = (sizeof(testFunctions) / sizeof(testFunctions[0]));
 
-	printf("%d\n", testRRBalancingOnMediumTree());
-    printf("%d\n", testLLBalancingOnMediumTree());
-    printf("%d\n", testRLBalancingOnMediumTree());
-    printf("%d\n", testLRBalancingOnMediumTree());
-  
+    for (int i = 0; i < numOfTests; i++){
+        int result = testFunctions[i]();
+        if (result == -1) printf("Test %s failed\n", testFunctionName[i]);
+        else if (result == 0) printf("Test %s passed\n", testFunctionName[i]);
+    }
+
     return 1;
 }
