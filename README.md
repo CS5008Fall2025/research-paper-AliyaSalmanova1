@@ -244,13 +244,28 @@ INSERT_TO_AVL_TREE(root, node)
 
 
 *For the implementation of this algorithm, I pushed myself to do the implementation on my own,
-but checked with the Python implementation occasionally to make sure I am on the right track. [w3school source]
+but checked with the Python implementation occasionally to make sure I am on the right track. [5]
 
 
 
 ## Summary
 - Provide a summary of your findings
 - What did you learn?
+
+
+Through implementing this algorithm, I practiced implementing recursive algorithms, particularly large recursive algorithms,
+which can be tricky to visualize and implement smoothly. 
+I also practiced thorough testing and handling appending data to files. 
+The testing and the runner code, as well as the algorithm implementation itself,
+helped solidate my knowledge gained in this course about pointers and freeing memory.
+Although the empirical data showing O(log n) time was expected and not surprising, 
+I was surprised that there were such few balancing operations getting performed.
+This was very interesting to me and I had to go through and walk through the algorithm again to see how this would work. 
+This helped confirm how efficient this algorithm is if trying to avoid worst case 
+runtime of operations on a binary search tree. 
+I also learned some history about the AVL tree and red black tree through research on this algorithm,
+such as when it was created and the usage of it has evolved throughout the years. 
+I am curious to explore further on how a Red Black Tree compares to an AVL tree. 
 
 Something I think that could've been better with this analysis, is that I could've made sure the random 
 values being inserted to the avl tree are not duplicates. 
@@ -271,6 +286,7 @@ Sources:
 
 [^4^]: Ghosh, A. K. (n.d.). AVL tree in data structures with examples. http://www.scholarhat.com/tutorial/datastructures/avl-tree-in-data-structures 
 
+[^5^]: W3schools.com. W3Schools Online Web Tutorials. (n.d.). https://www.w3schools.com/dsa/dsa_data_avltrees.php  
+
 Mehlhorn, K., & Tsakalidis, A. (1986). An amortized analysis of insertions into AVL-trees. SIAM Journal on Computing, 15(1). 
 
-W3schools.com. W3Schools Online Web Tutorials. (n.d.). https://www.w3schools.com/dsa/dsa_data_avltrees.php  
