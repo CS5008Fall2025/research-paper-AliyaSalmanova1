@@ -42,16 +42,16 @@ void logToCSV(const char* fileName, int(*getVal)(int)){
         totalSearchOps += searchOps;
         totalBalanceOps += balanceOps;
 
-        fprintf(data, "%d", i);
-        fprintf(data, " ");
-        fprintf(data, "%ld", totalSearchOps);
-        fprintf(data, " ");
+        fprintf(data, "%d, ", i);
+        fprintf(data, "%ld, ", totalSearchOps);
         fprintf(data, "%ld", totalBalanceOps);
         fprintf(data, "\n");
 
         searchOps = 0;
         balanceOps = 0;
     }
+
+    
 
     fclose(data);
 }
