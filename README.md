@@ -80,7 +80,7 @@ while the data structure of the tree is O(n) space.
 - Provide specific examples / data.
 
 
-Data taken from running the algorithm while inserting random numbers from 1-1000 into the tree:
+Data taken from running the algorithm while inserting ascending numbers from 1-1000 into the tree:
 
 
 | N    | Search Ops | Balance Ops | Total Ops | log2(N) | Search Ops / N | Balance Ops / N | Total Ops / N |
@@ -148,8 +148,26 @@ You can see that the balancing operations count, as well as the search count
 rises less in the inserting random values. This is because with choosing random values from 1-1,000,
 we are not avoiding duplicates. Trying to insert a duplicate would lead us to return the tree as is
 and not have to perform any balancing. It also will keep the tree smaller than the other two,
-as in the ascending and descending experiments, all nodes are bound to get get added to the tree. 
+as in the ascending and descending experiments, all nodes are bound to get get added to the tree.
 
+
+A more mathematical way to see why the height is O(log n) is to look at the minimum number of nodes an AVL tree of a given height can have. Let N(h) be the minimum number of nodes in any AVL tree of height h.
+
+Because of the AVL balance condition, the thinnest AVL tree of height h has:
+- one child subtree of height h - 1
+- the other child subtree of height h - 2
+
+(If the height difference were bigger than 1, it would not be an AVL tree).
+
+This gives the recurrence:
+N(0) = 1
+N(h) = 1 + N(h - 1) + N(h - 2)   for h >= 1
+
+From this, we can show that:
+N(h) >= 2^(h/2)
+
+So if the tree has n nodes, then:
+n >= 2^(h/2)  resulting in  h <= 2 * log2(n)
 
 
 
