@@ -23,15 +23,17 @@ in an unbalanced binary search tree,
 the height of the tree depends on the order in which the nodes were inserted. 
 If the nodes that were inserted were already sorted either ascending or descending, 
 we end up with a tree that is completely slanted to one side. 
-This makes it more similar to a linked list, in the sense that we would have to search every node
-to make an insertion, search, or deletion, making the worst case scenario of operations on an unbalanced binary search tree be O(n), instead of its average case - O(log n). 
+This makes it more similar to a linked list, in the sense that we would have to search every node (in worst case)
+to make an insertion, search, or deletion. The worst case scenario of operations on an unbalanced binary search tree is O(n), 
+instead of its average case - O(log n). 
 
 Implementing a balanced binary search tree lets us accomplish not hitting the worst case scenario, 
 allowing all these operations to be at worst still O(log n), as we do not risk 
-the tree being slanted all the way right or left. 
+the tree being slanted right or left. 
 
-The AVL Tree was coined by two Soviet Mathematics, G. M. Adel'son-Vel'skii and E. M. Landis. [^1]
-This was the first algorithm introduced that provides a way to balance a binary search tree. 
+The AVL Tree was introduced by two Soviet Mathematics, G. M. Adel'son-Vel'skii and E. M. Landis,
+in their paper, "An Algorithm for the Organization of Information". [^1]
+This was the first algorithm that provides a way to balance a binary search tree. 
 Later, in 1972, Rudolf Bayer, a German Computer Scientist, came up with the Red-Black Tree 
 (originally named symmetric binary B-tree), another commonly used bst balancing algorithm. 
 
@@ -145,13 +147,13 @@ to a different runtime like it would if we were using an unbalanced binary searc
 ![Insert Random Values Graph of Operations](./graphs/insertRandom.png "Insert Random Values from 1-1000")
 
 You can see that the balancing operations count, as well as the search count 
-rises less in the inserting random values. This is because with choosing random values from 1-1,000,
+rises less in the inserting random values. This is because when choosing random values from 1-1,000,
 we are not avoiding duplicates. Trying to insert a duplicate would lead us to return the tree as is
 and not have to perform any balancing. It also will keep the tree smaller than the other two,
-as in the ascending and descending experiments, all nodes are bound to get get added to the tree.
+as in the ascending and descending experiments, all nodes are bound to get added to the tree.
 
 
-A more mathematical way to see why the height is O(log n) is to look at the minimum number of nodes an AVL tree of a given height can have. Let N(h) be the minimum number of nodes in any AVL tree of height h.
+A more mathematical way to see why the height is of an AVL tree is O(log n) is to look at the minimum number of nodes an AVL tree of a given height. Let N(h) be the minimum number of nodes in any AVL tree of height h.
 
 Because of the AVL balance condition, the thinnest AVL tree of height h has:
 - one child subtree of height h - 1
@@ -161,7 +163,7 @@ Because of the AVL balance condition, the thinnest AVL tree of height h has:
 
 This gives the recurrence:
 N(0) = 1
-N(h) = 1 + N(h - 1) + N(h - 2)   for h >= 1
+N(h) = 1 + N(h - 1) + N(h - 2) for h >= 1
 
 From this, we can show that:
 N(h) >= 2^(h/2)
@@ -177,18 +179,30 @@ n >= 2^(h/2)  resulting in  h <= 2 * log2(n)
 - Why is it useful / used in that field area?
 - Make sure to provide sources for your information.
 
+Balanced binary search trees, including AVL trees, can be used whenever it is needed to maintain a set of keys in sorted order 
+while supporting fast search, insertion, and deletion operations at the same time. 
+The main goal is to keep operations close to O(log n) even as the data structure grows, 
+instead of degenerating to O(n) like an unbalanced binary search tree.
 
 Balanced binary search trees, including AVL trees, are still used in file systems to store 
-directories and files. [^2]
-They are also often used in databases. 
-This is because of its fast O(log n) inserting, in comparison to sorted linked list, sorted vector,
-and unbalanced BSTs worst case scenario insertion, which are all O(n) time.
-
+directories and files. [^2] This prevents the system from scanning the whole directory in order to find a certain file
+or nested directory. 
+They are also often used in databases for these same reasons. 
+A sorted linked list, sorted vector, and unbalanced BSTs have a worst case scenario insertion of O(n) time,
+giving the balanced BST an advantage.
 
 They are also used to implement dictionaries, maps, and sets. [^3]
+In these structures, keys must remain sorted (to support operations like iterating over all keys in 
+order or finding the smallest key greater than x, etc), 
+and the data structure must handle frequent inserts and deletions.
 
-Another interesting application of balanced binary search trees is in storyline games. [^4]
-
+Another interesting area balanced binary search trees such as AVL trees are used is game development. [^8] 
+This data structure keeps data ordered and shallow (not tall or lean), so games can quickly insert, remove, 
+and find objects (like entities, items, or game states) in O(log n) time even as the world changes every frame. 
+The same idea - keeping a tree roughly balanced - also appears in dynamic AABB trees used for collision detection, where organizing bounding boxes in a tree cuts down how many object pairs need to be checked. [^9] 
+It is also said that AVL trees are used in storyline games. [^4] 
+However, some sources indicate that in branching narrative or dialogue systems, story states and choices are often modeled as a tree or graph of scenes. [^7] 
+Still, game engines could use this structure internally to index these scenes by id or name, or for AI decision trees. [^4] 
 
 
 
@@ -202,12 +216,14 @@ Another interesting application of balanced binary search trees is in storyline 
 I implemented this algorithm in c in file avl.h. 
 I used only two of the most common libraries in c - <stdlib.h> and <stdio.h>. 
 
-I also created a function to search for a node in the avl tree and to delete a node from the avl tree,
+Besides the insertion algorithm, I also created a function to search for a node in the avl tree 
+and to delete a node from the avl tree,
 though in this report I am mostly focused on creating and inserting into an avl tree. 
-All these functions are tested on different sized trees in test.c. 
+All these functions are tested on different sized trees in [test.c](/test.c).
+My avl tree code is in [avl.h](/avl.h) . 
 
 I faced a few challenges during the implementation. 
-Firstly, it is at first difficult to fully conceptualize the logic of this algorithm.
+Firstly, it was difficult at first to fully conceptualize the logic of this algorithm.
 In a way, it is similar to merge-sort, as you recurse down the tree to find where to insert, 
 and then move back upward along your recursive calls, now performing the balance operations if needed.
 
@@ -219,6 +235,7 @@ checking and performing the balance operations.
 
 This is the psuedocode for my implementation: 
 
+```
 INSERT_TO_AVL_TREE(root, node)
     Input: root node of the BST, node to insert
     Output: updated root of the BST after insertion of node
@@ -265,7 +282,7 @@ INSERT_TO_AVL_TREE(root, node)
         return leftRotate(root, balanceOps); #rotated root left
     
     return root; #return updated root
-
+```
 
 *For the implementation of this algorithm, I pushed myself to do the implementation on my own,
 but checked with the Python implementation occasionally to make sure I am on the right track. [^5]
@@ -308,17 +325,16 @@ helped solidate my knowledge gained in this course about pointers and freeing me
 Although the empirical data showing O(log n) time was expected and not surprising, 
 I was surprised that there were such few balancing operations getting performed.
 This was very interesting to me and I had to go through and walk through the algorithm again to see how this would work. 
-This helped confirm how efficient this algorithm is if trying to avoid worst case 
+The empirical data helped confirm how efficient this algorithm is if trying to avoid worst case 
 runtime of operations on a binary search tree. 
 I also learned some history about the AVL tree and red black tree through research on this algorithm,
-such as when it was created and the usage of it has evolved throughout the years. 
+such as when it was created and how its usage has evolved throughout the years. 
 I am curious to explore further on how a Red Black Tree compares to an AVL tree. 
 
 Something I think that could've been better with this analysis, is that I could've made sure the random 
 values being inserted to the avl tree are not duplicates. 
-Making it possible to have duplicates in the random inserts run differs from the 
-experiment of inserting ascending values and inserting descending values from 1-1,000.
-I think it would have made more sense 
+Making it possible to have duplicates in the random inserts run makes it differ from the 
+experiment of inserting ascending values and inserting descending values within the same range.
 
 
 
@@ -337,3 +353,8 @@ Sources:
 
 [^6]: Mehlhorn, K., & Tsakalidis, A. (1986). An amortized analysis of insertions into AVL-trees. SIAM Journal on Computing, 15(1). 
 
+[^7]: O. Riedl , M., & Young, R. M. (n.d.). From Linear Story Generation to Branching Story Graphs. https://faculty.cc.gatech.edu/~riedl/pubs/riedl-aiide05.pdf 
+
+[^8]: HeyCoach. (n.d.). AVL Tree in Game Development. https://blog.heycoach.in/avl-tree-in-game-development/ 
+
+[^9]: Chou, M.-L. “Allen.” (2014, September 15). Game physics: Broadphase – Dynamic Aabb Tree. https://allenchou.net/2014/02/game-physics-broadphase-dynamic-aabb-tree 
