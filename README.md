@@ -30,7 +30,7 @@ Implementing a balanced binary search tree lets us accomplish not hitting the wo
 allowing all these operations to be at worst still O(log n), as we do not risk 
 the tree being slanted all the way right or left. 
 
-The AVL Tree was coined by two Soviet Mathematics, G. M. Adel'son-Vel'skii and E. M. Landis. [1]
+The AVL Tree was coined by two Soviet Mathematics, G. M. Adel'son-Vel'skii and E. M. Landis. [^1]
 This was the first algorithm introduced that provides a way to balance a binary search tree. 
 Later, in 1972, Rudolf Bayer, a German Computer Scientist, came up with the Red-Black Tree 
 (originally named symmetric binary B-tree), another commonly used bst balancing algorithm. 
@@ -127,7 +127,7 @@ and more precisely, O(log2 n).
 The Balance Ops / N column is also consistent with known amortized analysis from literature. 
 Mehlhorn and Tsakalidis analyze insertions into AVL trees and show that 
 over any sequence of n insertions into an an AVL tree, 
-the total number of balance changes (rotations and height updates) is at most 2.618n. [6]
+the total number of balance changes (rotations and height updates) is at most 2.618n. [^6]
 
 Below I have included 3 graphs showing the search operations and balance operations 
 for nodes with values 1-1,000 inserted in ascending order,
@@ -179,15 +179,15 @@ n >= 2^(h/2)  resulting in  h <= 2 * log2(n)
 
 
 Balanced binary search trees, including AVL trees, are still used in file systems to store 
-directories and files. [2]
+directories and files. [^2]
 They are also often used in databases. 
 This is because of its fast O(log n) inserting, in comparison to sorted linked list, sorted vector,
 and unbalanced BSTs worst case scenario insertion, which are all O(n) time.
 
 
-They are also used to implement dictionaries, maps, and sets. [3]
+They are also used to implement dictionaries, maps, and sets. [^3]
 
-Another interesting application of balanced binary search trees is in storyline games. [4]
+Another interesting application of balanced binary search trees is in storyline games. [^4]
 
 
 
@@ -268,7 +268,7 @@ INSERT_TO_AVL_TREE(root, node)
 
 
 *For the implementation of this algorithm, I pushed myself to do the implementation on my own,
-but checked with the Python implementation occasionally to make sure I am on the right track. [5]
+but checked with the Python implementation occasionally to make sure I am on the right track. [^5]
 
 To prove that the algorithm is correct, we need to show 
 that it preserves the binary search tree property (the right side of a node always contains 
@@ -325,15 +325,15 @@ I think it would have made more sense
 
 Sources:
 
-[^1^]: Adel’son-Vel’skii, G. M., & Landis, E. M. (1962). AN ALGORITHM FOR THE ORGANIZATION OF INFORMATION. Soviet Mathematics Doklady. 
+[^1]: Adel’son-Vel’skii, G. M., & Landis, E. M. (1962). AN ALGORITHM FOR THE ORGANIZATION OF INFORMATION. Soviet Mathematics Doklady. 
 
-[^2^]: How to optimize the database indexing using AVL trees. Educative. (n.d.). http://www.educative.io/answers/how-to-optimize-the-database-indexing-using-avl-trees 
+[^2]: How to optimize the database indexing using AVL trees. Educative. (n.d.). http://www.educative.io/answers/how-to-optimize-the-database-indexing-using-avl-trees 
 
-[^3^]: Pfenning, F. (2015, March 19). Lecture notes on AVL trees 15-122: Principles of Imperative Computation. https://www.cs.cmu.edu/~rjsimmon/15122-s15/lec/17-avl.pdf 
+[^3]: Pfenning, F. (2015, March 19). Lecture notes on AVL trees 15-122: Principles of Imperative Computation. https://www.cs.cmu.edu/~rjsimmon/15122-s15/lec/17-avl.pdf 
 
-[^4^]: Ghosh, A. K. (n.d.). AVL tree in data structures with examples. http://www.scholarhat.com/tutorial/datastructures/avl-tree-in-data-structures 
+[^4]: Ghosh, A. K. (n.d.). AVL tree in data structures with examples. http://www.scholarhat.com/tutorial/datastructures/avl-tree-in-data-structures 
 
-[^5^]: W3schools.com. W3Schools Online Web Tutorials. (n.d.). https://www.w3schools.com/dsa/dsa_data_avltrees.php  
+[^5]: W3schools.com. W3Schools Online Web Tutorials. (n.d.). https://www.w3schools.com/dsa/dsa_data_avltrees.php  
 
-[^6^]: Mehlhorn, K., & Tsakalidis, A. (1986). An amortized analysis of insertions into AVL-trees. SIAM Journal on Computing, 15(1). 
+[^6]: Mehlhorn, K., & Tsakalidis, A. (1986). An amortized analysis of insertions into AVL-trees. SIAM Journal on Computing, 15(1). 
 
