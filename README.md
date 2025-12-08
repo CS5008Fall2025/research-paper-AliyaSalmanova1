@@ -1,18 +1,11 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/zBqi0PeJ)
+
 # Research Paper
 * Name: Aliya Salmanova
 * Semester: Fall 2025
 * Topic: CS 5008 Data Structures, Algorithms, and Their Applications within Computer Systems
 
 
-
-Note the following is an example outline to help you. Please rework as you need, you do not need to follow the section heads and *YOU SHOULD NOT* make everything a bulleted list. This needs to read as an executive report/research paper. 
-
 ## Introduction
-- What is the algorithm/datastructure?
-- What is the problem it solves? 
-- Provide a brief history of the algorithm/datastructure. (make sure to cite sources)
-- Provide an introduction to the rest of the paper. 
 
 This report is on the AVL Tree,
 an algorithm that accomplishes ensuring that a binary search tree is balanced at all times.
@@ -39,11 +32,6 @@ and will provide some examples of instances in which this algorithm is used.
 
 
 ## Analysis of Algorithm/Datastructure
-Make sure to include the following:
-- Time Complexity
-- Space Complexity
-- General analysis of the algorithm/datastructure
-
 
 The time complexity of inserting into an AVL Tree is O(log n), or otherwise written as O(h), 
 the h representing the height of the tree. 
@@ -68,12 +56,7 @@ while the data structure of the tree is O(n) space.
 
 
 
-
-
 ## Empirical Analysis
-- What is the empirical analysis?
-- Provide specific examples / data.
-
 
 Data taken from running the algorithm while inserting ascending numbers from 1-1000 into the tree:
 
@@ -165,10 +148,6 @@ n >= 2^(h/2)  resulting in  h <= 2 * log2(n)
 
 
 ## Application
-- What is the algorithm/datastructure used for?
-- Provide specific examples
-- Why is it useful / used in that field area?
-- Make sure to provide sources for your information.
 
 Balanced binary search trees, including AVL Trees, can be used whenever it is needed to maintain a set of keys in sorted order 
 while supporting fast search, insertion, and deletion operations at the same time. 
@@ -198,11 +177,6 @@ Still, game engines could use this structure internally to index these scenes by
 
 
 ## Implementation
-- What language did you use?
-- What libraries did you use?
-- What were the challenges you faced?
-- Provide key points of the algorithm/datastructure implementation, discuss the code.
-- If you found code in another language, and then implemented in your own language that is fine - but make sure to document that.
 
 I implemented this algorithm in C in [avl.h](/avl.h). 
 I used only two of the most common libraries in c - <stdlib.h> and <stdio.h>. 
@@ -303,9 +277,6 @@ By induction on the height, AVL insertion is correct for all AVL Trees.
 
 
 ## Summary
-- Provide a summary of your findings
-- What did you learn?
-
 
 Implementing this algorithm gave me more practice with large recursive functions and programs, 
 which can be tricky to visualize and write smoothly.
@@ -328,8 +299,7 @@ experiment of inserting ascending values and inserting descending values within 
 
 
 
-
-Sources:
+## Sources:
 
 [^1]: Adel’son-Vel’skii, G. M., & Landis, E. M. (1962). AN ALGORITHM FOR THE ORGANIZATION OF INFORMATION. Soviet Mathematics Doklady. 
 
