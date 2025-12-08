@@ -14,24 +14,17 @@ Note the following is an example outline to help you. Please rework as you need,
 - Provide a brief history of the algorithm/datastructure. (make sure to cite sources)
 - Provide an introduction to the rest of the paper. 
 
-The algorithm talked about in this report is the AVL Tree. 
-The AVL Tree algorithm is an algorithm that accomplishes ensuring that a binary search tree is balanced at all times.
+This report is on the AVL Tree,
+an algorithm that accomplishes ensuring that a binary search tree is balanced at all times.
 This means the difference between the height of the left and right subtree for each node in the binary search tree is not greater than 1. 
 
-The problem that we are solving with this AVL Tree algorithm is that, 
-in an unbalanced binary search tree, 
-the height of the tree depends on the order in which the nodes were inserted. 
-If the nodes that were inserted were already sorted either ascending or descending, 
-we end up with a tree that is completely slanted to one side. 
-This makes it more similar to a linked list, in the sense that we would have to search every node (in worst case)
-to make an insertion, search, or deletion. The worst case scenario of operations on an unbalanced binary search tree is O(n), 
-instead of its average case - O(log n). 
+In an unbalanced binary search tree, the height depends on the insertion order. If values are inserted in sorted order, the tree becomes a long chain on one side, effectively behaving like a linked list. In that case, insertions, searches, and deletions degrade from the usual O(log n) to O(n) in the worst case. Balanced trees, including the AVL Tree, solve this problem. 
 
 Implementing a balanced binary search tree lets us accomplish not hitting the worst case scenario, 
 allowing all these operations to be at worst still O(log n), as we do not risk 
 the tree being slanted right or left. 
 
-The AVL Tree was introduced by two Soviet Mathematics, G. M. Adel'son-Vel'skii and E. M. Landis,
+The AVL Tree was introduced by two Soviet Mathematicians, G. M. Adel'son-Vel'skii and E. M. Landis,
 in their paper, "An Algorithm for the Organization of Information". [^1]
 This was the first algorithm that provides a way to balance a binary search tree. 
 Later, in 1972, Rudolf Bayer, a German Computer Scientist, came up with the Red-Black Tree 
@@ -40,7 +33,7 @@ Later, in 1972, Rudolf Bayer, a German Computer Scientist, came up with the Red-
 In this report, I will be focused specifically on the AVL Tree. 
 I will explain the time and space complexity of the AVL Tree algorithm,
 analyse the empirical data gathered by tracking the amount of node visits 
-during insertions to an avl tree and the operations performed to keep the tree balanced, 
+during insertions to an AVL Tree and the operations performed to keep the tree balanced, 
 and will provide some examples of instances in which this algorithm is used.
 
 
@@ -57,12 +50,12 @@ the h representing the height of the tree.
 This is because the height of a tree is log2 n, as at each level in a balanced tree,
 the amount of nodes is twice greater than the previous level, until we 
 get the the bottom level, which has n/2 nodes. 
-Inserting into an AVL tree requires searching for where to insert the tree,
+Inserting into an AVL Tree requires searching for where to insert the tree,
 which means following down the height of the tree. 
 The operations made to keep the tree balanced add O(1) time.
 We will see this in the empirical data and analysis. 
 
-The space complexity of the AVL tree itself is O(n), as each value inserted into the tree always gets mapped 
+The space complexity of the AVL Tree itself is O(n), as each value inserted into the tree always gets mapped 
 to one node. This node struct has a value, a left pointer, a right pointer, 
 and a height showing at which height of the tree it's at. 
 We need this to perform the balancing.
@@ -117,18 +110,16 @@ Data taken from running the algorithm while inserting ascending numbers from 1-1
 From the table, we can see that as N doubles, 
 the search operations divided by N increases approximately by 1.
 For example, search ops/n for 25 is 3.760, and for 50 it is 4.740. 
-This proves that the searching operation of an AVL Tree is O(log n),
-for both average case and worst case. 
 The balance ops increases every N by either 1 or 0. 
 However, the balance operation happens during searching, and is O(1) time, 
 so the balancing part of the algorithm is O(1).
 
-This proves that the overall algorithm of inserting to an AVL tree is O(log n),
-and more precisely, O(log2 n). 
+The search and balance operation counts together support the theory that inserting into an AVL tree has a runtime of O(log n), 
+as the height of the tree grows proportionally to log2 n.
 
 The Balance Ops / N column is also consistent with known amortized analysis from literature. 
-Mehlhorn and Tsakalidis analyze insertions into AVL trees and show that 
-over any sequence of n insertions into an an AVL tree, 
+Mehlhorn and Tsakalidis analyze insertions into AVL Trees and show that 
+over any sequence of n insertions into an an AVL Tree, 
 the total number of balance changes (rotations and height updates) is at most 2.618n. [^6]
 
 Below I have included 3 graphs showing the search operations and balance operations 
@@ -136,7 +127,7 @@ for nodes with values 1-1,000 inserted in ascending order,
 descending order, and nodes inserted with random values that can be from 1-1,000.
 
 As we can see, the runtime increase of these operations is very similar in all three graphs,
-showing that in AVL trees having the nodes already sorted before inserting them does not lead 
+showing that in AVL Trees having the nodes already sorted before inserting them does not lead 
 to a different runtime like it would if we were using an unbalanced binary search tree. 
 
 
@@ -153,13 +144,13 @@ and not have to perform any balancing. It also will keep the tree smaller than t
 as in the ascending and descending experiments, all nodes are bound to get added to the tree.
 
 
-A more mathematical way to see why the height is of an AVL tree is O(log n) is to look at the minimum number of nodes an AVL tree of a given height. Let N(h) be the minimum number of nodes in any AVL tree of height h.
+A more mathematical way to see why the height is of an AVL Tree is O(log n) is to look at the minimum number of nodes an AVL Tree of a given height. Let N(h) be the minimum number of nodes in any AVL Tree of height h.
 
-Because of the AVL balance condition, the thinnest AVL tree of height h has:
+Because of the AVL balance condition, the thinnest AVL Tree of height h has:
 - one child subtree of height h - 1
 - the other child subtree of height h - 2
 
-(If the height difference were bigger than 1, it would not be an AVL tree).
+(If the height difference were bigger than 1, it would not be an AVL Tree).
 
 This gives the recurrence:
 N(0) = 1
@@ -179,12 +170,12 @@ n >= 2^(h/2)  resulting in  h <= 2 * log2(n)
 - Why is it useful / used in that field area?
 - Make sure to provide sources for your information.
 
-Balanced binary search trees, including AVL trees, can be used whenever it is needed to maintain a set of keys in sorted order 
+Balanced binary search trees, including AVL Trees, can be used whenever it is needed to maintain a set of keys in sorted order 
 while supporting fast search, insertion, and deletion operations at the same time. 
 The main goal is to keep operations close to O(log n) even as the data structure grows, 
 instead of degenerating to O(n) like an unbalanced binary search tree.
 
-Balanced binary search trees, including AVL trees, are still used in file systems to store 
+This data structure is still used in file systems to store 
 directories and files. [^2] This prevents the system from scanning the whole directory in order to find a certain file
 or nested directory. 
 They are also often used in databases for these same reasons. 
@@ -196,12 +187,12 @@ In these structures, keys must remain sorted (to support operations like iterati
 order or finding the smallest key greater than x, etc), 
 and the data structure must handle frequent inserts and deletions.
 
-Another interesting area balanced binary search trees such as AVL trees are used is game development. [^8] 
+Another interesting area balanced binary search trees such as AVL Trees are used is game development. [^8] 
 This data structure keeps data ordered and shallow (not tall or lean), so games can quickly insert, remove, 
-and find objects (like entities, items, or game states) in O(log n) time even as the world changes every frame. 
-The same idea - keeping a tree roughly balanced - also appears in dynamic AABB trees used for collision detection, where organizing bounding boxes in a tree cuts down how many object pairs need to be checked. [^9] 
-It is also said that AVL trees are used in storyline games. [^4] 
-However, some sources indicate that in branching narrative or dialogue systems, story states and choices are often modeled as a tree or graph of scenes. [^7] 
+and find objects (like items, or game states) in O(log n) time even as the world changes every frame. 
+The same idea of keeping a tree roughly balanced also appears in dynamic AABB trees used for collision detection, where organizing bounding boxes in a tree cuts down how many object pairs need to be checked. [^9] 
+It is also said that AVL Trees are used in storyline games. [^4] 
+However, some sources indicate that in branching narrative or dialogue systems, story states and choices are often modeled as a tree or graph of scenes (to support multiple directions). [^7] 
 Still, game engines could use this structure internally to index these scenes by id or name, or for AI decision trees. [^4] 
 
 
@@ -213,14 +204,13 @@ Still, game engines could use this structure internally to index these scenes by
 - Provide key points of the algorithm/datastructure implementation, discuss the code.
 - If you found code in another language, and then implemented in your own language that is fine - but make sure to document that.
 
-I implemented this algorithm in c in file avl.h. 
+I implemented this algorithm in C in [avl.h](/avl.h). 
 I used only two of the most common libraries in c - <stdlib.h> and <stdio.h>. 
 
-Besides the insertion algorithm, I also created a function to search for a node in the avl tree 
-and to delete a node from the avl tree,
-though in this report I am mostly focused on creating and inserting into an avl tree. 
+Besides the insertion algorithm, I also created a function to search for a node in the AVL Tree 
+and to delete a node from the AVL Tree,
+though in this report I am mostly focused on creating and inserting into an AVL Tree. 
 All these functions are tested on different sized trees in [test.c](/test.c).
-My avl tree code is in [avl.h](/avl.h) . 
 
 I faced a few challenges during the implementation. 
 Firstly, it was difficult at first to fully conceptualize the logic of this algorithm.
@@ -299,16 +289,16 @@ Base case: If the tree is empty, inserting a single node creates a tree with one
 whose left and right pointers are NULL, so the BST property and AVL balance invariant clearly holds.
 
 Inductive hypothesis: 
-For every AVL tree of height h, we will assume that inserting a value with this algorithm returns a valid AVL tree.
+For every AVL Tree of height h, we will assume that inserting a value with this algorithm returns a valid AVL Tree.
 
 Inductive step: 
-Now we will take an AVL tree of height h + 1 with root value r and insert a value x.
+Now we will take an AVL Tree of height h + 1 with root value r and insert a value x.
 - if x < r, we recursively insert into the left subtree
 - if x > r, we recursively insert into the right subtree
 - if x == r, we return the tree unchanged
-By the inductive assumption, the subtree we recurse into is still an AVL tree after insertion. That means the binary search ordering is preserved there, and all its nodes are still balanced. After the recursive call, we update the heights on the path back to the root. If every node on that path still has left and right subtree heights that differ by at most 1, we are done. If some node becomes unbalanced (difference is 2), its children must match one of the four standard AVL cases (LL, RR, LR, RL). The corresponding single or double rotation is a local change that restores the height difference at that node to at most 1 and does not change the in-order order of the values, so the binary search tree property still holds. Subtrees below were already AVL by the inductive assumption, and subtrees above cannot become worse when the height is reduced or stays the same. Therefore the final tree is again a valid AVL tree.
+By the inductive assumption, the subtree we recurse into is still an AVL Tree after insertion. That means the binary search ordering is preserved there, and all its nodes are still balanced. After the recursive call, we update the heights on the path back to the root. If every node on that path still has left and right subtree heights that differ by at most 1, we are done. If some node becomes unbalanced (difference is 2), its children must match one of the four standard AVL cases (LL, RR, LR, RL). The corresponding single or double rotation is a local change that restores the height difference at that node to at most 1 and does not change the in-order order of the values, so the binary search tree property still holds. Subtrees below were already AVL by the inductive assumption, and subtrees above cannot become worse when the height is reduced or stays the same. Therefore the final tree is again a valid AVL Tree.
 
-By induction on the height, AVL insertion is correct for all AVL trees.
+By induction on the height, AVL insertion is correct for all AVL Trees.
 
 
 
@@ -317,8 +307,8 @@ By induction on the height, AVL insertion is correct for all AVL trees.
 - What did you learn?
 
 
-Through implementing this algorithm, I practiced implementing recursive algorithms, particularly large recursive algorithms,
-which can be tricky to visualize and implement smoothly. 
+Implementing this algorithm gave me more practice with large recursive functions and programs, 
+which can be tricky to visualize and write smoothly.
 I also practiced thorough testing and handling appending data to files. 
 The testing and the runner code, as well as the algorithm implementation itself,
 helped solidate my knowledge gained in this course about pointers and freeing memory.
@@ -327,12 +317,12 @@ I was surprised that there were such few balancing operations getting performed.
 This was very interesting to me and I had to go through and walk through the algorithm again to see how this would work. 
 The empirical data helped confirm how efficient this algorithm is if trying to avoid worst case 
 runtime of operations on a binary search tree. 
-I also learned some history about the AVL tree and red black tree through research on this algorithm,
+I also learned some history about the AVL Tree and red black tree through research on this algorithm,
 such as when it was created and how its usage has evolved throughout the years. 
-I am curious to explore further on how a Red Black Tree compares to an AVL tree. 
+I am curious to explore further on how a Red Black Tree compares to an AVL Tree. 
 
 Something I think that could've been better with this analysis, is that I could've made sure the random 
-values being inserted to the avl tree are not duplicates. 
+values being inserted to the AVL Tree are not duplicates. 
 Making it possible to have duplicates in the random inserts run makes it differ from the 
 experiment of inserting ascending values and inserting descending values within the same range.
 

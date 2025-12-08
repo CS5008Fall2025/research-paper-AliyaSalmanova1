@@ -154,6 +154,8 @@ Node *insertToAVLTree(Node *tree, Node *nodeToInsert, long *searchOps, long *bal
     } 
     //if node has equal val to root
     else {
+        // free the unused node to avoid a leak
+        free(nodeToInsert);
         return tree;
     }
 

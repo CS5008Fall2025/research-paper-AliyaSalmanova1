@@ -155,7 +155,7 @@ int deleteRightNodeInSmallTreeHelper(int nodeVal1, int nodeVal2, int nodeVal3, i
     if (!isBalanced(avlTree)) result = -1;
 	
     //free memory!
-    freeTree(nodeToDelete);
+    free(nodeToDelete);
 	freeTree(avlTree);
 
     return result;   
@@ -189,7 +189,7 @@ int deleteLeftNodeInSmallTreeHelper(int nodeVal1, int nodeVal2, int nodeVal3, in
     if (!isBalanced(avlTree)) result = -1;
 	
     //free memory!
-    freeTree(nodeToDelete);
+    free(nodeToDelete);
 	freeTree(avlTree);
 
     return result;   
@@ -221,7 +221,7 @@ int deleteMidNodeInSmallTreeHelper(int nodeVal1, int nodeVal2, int nodeVal3, int
     if (!isBalanced(avlTree)) result = -1;
 	
     //free memory!
-    freeTree(nodeToDelete);
+    free(nodeToDelete);
 	freeTree(avlTree);
 
     return result;   
@@ -246,7 +246,7 @@ int deleteNodeInMediumTreeHelper(int *valArray, int arrayLength, int nodeValToDe
     if (contains(avlTree, nodeToDelete->val)) result = -1;
 
     //free memory!
-    freeTree(nodeToDelete);
+    free(nodeToDelete);
 	freeTree(avlTree);
 
     return result;   
@@ -359,7 +359,7 @@ int testFindNodeInSmallTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 1) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 2
     nodeToFind = createNode(2);
@@ -367,7 +367,7 @@ int testFindNodeInSmallTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 2) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 3
     nodeToFind = createNode(3);
@@ -375,14 +375,14 @@ int testFindNodeInSmallTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 3) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 4 which doesn't exist in tree
     nodeToFind = createNode(4);
     foundNode = findNode(avlTree, nodeToFind);
     //should be null!
     if (foundNode != NULL) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //free memory!
     freeTree(avlTree);
@@ -404,7 +404,7 @@ int testFindNodeInMedTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 7) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 2
     nodeToFind = createNode(2);
@@ -412,7 +412,7 @@ int testFindNodeInMedTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 2) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 5
     nodeToFind = createNode(5);
@@ -420,14 +420,14 @@ int testFindNodeInMedTree(){
     //should be found and not null
     if (foundNode == NULL) result = -1;
     else if (foundNode->val != 5) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //find 4 which doesn't exist in tree
     nodeToFind = createNode(10);
     foundNode = findNode(avlTree, nodeToFind);
     //should be null!
     if (foundNode != NULL) result = -1;
-    freeTree(nodeToFind);
+    free(nodeToFind);
 
     //free memory!
     freeTree(avlTree);
