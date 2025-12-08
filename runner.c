@@ -7,7 +7,9 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "avl.h"
+
 
 
 void logToCSV(const char* fileName, int(*getVal)(int)){
@@ -100,4 +102,5 @@ int main(int argc, char *argv[]){
     logToCSV("descendingNodeValues.csv", getDifference);
     logToCSV("randomNodeValues.csv", getRandomNum);
 
+    return 0;
 }

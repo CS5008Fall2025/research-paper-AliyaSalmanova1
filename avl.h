@@ -65,7 +65,7 @@ Node *rightRotate(Node *newRight, long *balanceOps){
     if (newRight == NULL || newRight->left == NULL){
         return newRight;
     }
-    (*balanceOps)++;
+    if (balanceOps != NULL) (*balanceOps)++;
 
     Node *newMiddle = newRight->left; //left child will now be middle child
     // save right of new middle child to avoid overwriting 
@@ -86,7 +86,7 @@ Node *leftRotate(Node *newLeft, long *balanceOps){
     if (newLeft == NULL || newLeft->right == NULL){
         return newLeft;
     }
-    (*balanceOps)++;
+    if (balanceOps != NULL) (*balanceOps)++;
     
     Node *newMiddle = newLeft->right; //right child will now be middle child
     // save left of new middle child to avoid overwriting 
@@ -144,12 +144,12 @@ Node *insertToAVLTree(Node *tree, Node *nodeToInsert, long *searchOps, long *bal
 
     //if node belongs on the left side of tree
     if (nodeToInsert->val < tree->val){
-        (*searchOps)++;
+        if (searchOps != NULL) (*searchOps)++;
         tree->left = insertToAVLTree(tree->left, nodeToInsert, searchOps, balanceOps);
     } 
     //if node belongs on the right side of tree
     else if (nodeToInsert->val > tree->val){
-        (*searchOps)++;
+        if (searchOps != NULL) (*searchOps)++;
         tree->right = insertToAVLTree(tree->right, nodeToInsert, searchOps, balanceOps);  
     } 
     //if node has equal val to root
@@ -235,6 +235,10 @@ Node *findNode(Node *tree, Node *nodeToFind){
 /* helper function to create a node */
 Node *createNode(int val){
     Node *node = (Node *)malloc(sizeof(Node));
+    if (node == NULL) {
+        printf("Memory allocation failed!\n");
+        exit(1);
+    }
     node->val = val;
     node->left = NULL;
     node->right = NULL;
